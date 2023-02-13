@@ -4,7 +4,8 @@ import GithubViewerNetworking
 import GithubViewerUserInterface
 
 struct RepositoriesView: View {
-  @StateObject private var viewModel = ViewModel(
+  @State private var searchQuery = ""
+  @StateObject private var viewModel = RepositoriesViewModel(
     repositoriesNetworkService: DefaultRepositoriesNetworkService()
   )
 
@@ -13,19 +14,15 @@ struct RepositoriesView: View {
       if viewModel.isLoading {
         ProgressView()
       } else {
-        ScrollView {
-          VStack(alignment: .leading) {
-            ForEach(viewModel.repositories) { repository in
-              NavigationLink(value: repository) {
-                ItemView(repository: repository)
-              }
-            }
-          }
-        }
+        ListView(repositories: viewModel.repositories)
       }
     }
-    .onFirstAppear {
-      Task { await viewModel.loadRepositores() }
+    .searchable(text: $searchQuery)
+    .onFirstAppearTask {
+      await viewModel.loadRepositores()
+    }
+    .onChange(of: searchQuery) { query in
+      viewModel.onSearchQueryUpdated(query)
     }
     .navigationDestination(for: Repository.self) { repository in
       RepositoryDetailsView(repository: repository)

@@ -15,6 +15,12 @@ public struct ViewFirstAppearModifier: ViewModifier {
 }
 
 public extension View {
+  func onFirstAppearTask(_ onAppear: @escaping () async -> Void) -> some View {
+    onFirstAppear {
+      Task { await onAppear() }
+    }
+  }
+
   func onFirstAppear(_ onAppear: @escaping () -> Void) -> some View {
     modifier(
       ViewFirstAppearModifier(onAppear: onAppear)
