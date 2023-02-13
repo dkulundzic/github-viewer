@@ -10,6 +10,8 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// No repositories available
+  internal static let repositoriesListNoReposAvailableMessage = L10n.tr("Localizable", "repositories_list_no_repos_available_message", fallback: "No repositories available")
   /// Repositories
   internal static let repositoriesListTitle = L10n.tr("Localizable", "repositories_list_title", fallback: "Repositories")
 }

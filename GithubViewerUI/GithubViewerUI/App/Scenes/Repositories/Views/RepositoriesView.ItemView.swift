@@ -22,9 +22,7 @@ extension RepositoriesView {
 
         VStack(alignment: .leading, spacing: 8) {
           Text(repository.name)
-            .font(.body)
           Text(repository.author.name)
-            .font(.body)
           HStack {
             Text(repository.numOfIssues.description)
             Text(repository.numOfWatchers.description)
@@ -34,6 +32,7 @@ extension RepositoriesView {
         }
         .padding(.leading, 8)
         .foregroundColor(.black)
+        .font(.body)
 
         Spacer()
       }

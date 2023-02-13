@@ -44,7 +44,6 @@ private extension RepositoriesViewModel {
       .removeDuplicates()
       .debounce(for: 0.5, scheduler: DispatchQueue.main)
       .sink { query in
-        print("New load request for \"\(query)\"")
         Task { await self.loadRepositores(using: query) }
       }
       .store(in: &bag)

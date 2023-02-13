@@ -10,11 +10,16 @@ struct RepositoriesView: View {
   )
 
   var body: some View {
-    Group {
+    VStack {
       if viewModel.isLoading {
         ProgressView()
       } else {
-        ListView(repositories: viewModel.repositories)
+        if viewModel.repositories.isEmpty {
+          Text(L10n.repositoriesListNoReposAvailableMessage)
+            .font(.title3)
+        } else {
+          ListView(repositories: viewModel.repositories)
+        }
       }
     }
     .searchable(text: $searchQuery)
