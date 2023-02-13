@@ -23,6 +23,7 @@ public struct Repository: Decodable, Identifiable {
   public let numOfWatchers: Int
   public let numOfForks: Int
   public let numOfIssues: Int
+  public let numOfStars: Int
 
   private enum CodingKeys: String, CodingKey {
     case id
@@ -31,6 +32,7 @@ public struct Repository: Decodable, Identifiable {
     case numOfWatchers = "watchers_count"
     case numOfForks = "forks_count"
     case numOfIssues = "open_issues_count"
+    case numOfStars = "stargazers_count"
   }
 }
 
@@ -52,7 +54,8 @@ extension Repository: Mockable {
       author: .mock,
       numOfWatchers: (0...1000).randomElement()!,
       numOfForks: (0...10).randomElement()!,
-      numOfIssues: (0...50).randomElement()!
+      numOfIssues: (0...50).randomElement()!,
+      numOfStars: (0...100000).randomElement()!
     )
   }
 }

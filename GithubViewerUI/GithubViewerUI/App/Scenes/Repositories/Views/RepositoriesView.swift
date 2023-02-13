@@ -19,6 +19,7 @@ struct RepositoriesView: View {
             .font(.title3)
         } else {
           ListView(repositories: viewModel.repositories)
+            .animation(.default, value: viewModel.selectedSortOption)
         }
       }
     }
@@ -33,6 +34,14 @@ struct RepositoriesView: View {
       RepositoryDetailsView(repository: repository)
     }
     .navigationTitle(L10n.repositoriesListTitle)
+    .toolbar {
+      MenuView(
+        options: viewModel.sortOptions,
+        selectedSortOption: viewModel.selectedSortOption
+      ) { option in
+        viewModel.onMenuActionTap(option)
+      }
+    }
   }
 }
 
