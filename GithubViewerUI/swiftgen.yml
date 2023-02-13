@@ -1,0 +1,15 @@
+xcassets:
+  - inputs:
+    - GithubViewerUI/Resources/Assets/Images.xcassets
+    - GithubViewerUI/Resources/Assets/Colors.xcassets
+    outputs:
+      - templateName: swift5
+        params:
+          forceProvidesNamespaces: true
+        output: GithubViewerUI/Resources/Assets/Generated/Assets.swift
+
+strings:
+  inputs: GithubViewerUI/Resources/Localization/en.lproj/Localizable.strings
+  outputs:
+    templateName: structured-swift5
+    output: GithubViewerUI/Resources/Localization/Generated/Strings.swift

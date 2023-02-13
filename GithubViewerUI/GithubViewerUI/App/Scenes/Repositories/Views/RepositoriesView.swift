@@ -30,7 +30,7 @@ struct RepositoriesView: View {
     .navigationDestination(for: Repository.self) { repository in
       RepositoryDetailsView(repository: repository)
     }
-    .navigationTitle("Repositories")
+    .navigationTitle(L10n.repositoriesListTitle)
   }
 }
 
