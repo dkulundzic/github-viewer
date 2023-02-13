@@ -5,13 +5,14 @@ import GithubViewerNetworking
 
 @MainActor final class RepositoriesViewModel: ObservableObject {
   @Published var repositories: [Repository] = []
-  @Published var sortOptions = RepositorySortingOption.allCases
+  @Published var sortOptions = RepositorySortingOption.sorted
   @Published var isLoading = false
   @Published var selectedSortOption: RepositorySortingOption?
 
   let repositoriesNetworkService: RepositoriesNetworkService
   private var originalRepositories: [Repository] = []
   private var bag = Set<AnyCancellable>()
+  private var task: Task<Void, Never>?
   private let defaultQuery = "Test"
   private let searchQuerySubject = PassthroughSubject<String, Never>()
 
@@ -53,8 +54,10 @@ private extension RepositoriesViewModel {
     searchQuerySubject
       .removeDuplicates()
       .debounce(for: 0.5, scheduler: DispatchQueue.main)
-      .sink { query in
-        Task { await self.loadRepositores(using: query) }
+      .sink { [weak self] query in
+        guard let self = self else { return }
+        self.task?.cancel()
+        self.task = Task { await self.loadRepositores(using: query) }
       }
       .store(in: &bag)
   }
