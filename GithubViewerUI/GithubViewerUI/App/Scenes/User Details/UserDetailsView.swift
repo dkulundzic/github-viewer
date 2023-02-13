@@ -6,6 +6,7 @@ struct UserDetailsView: View {
 
   var body: some View {
     Text("Test")
+      .navigationTitle("User details")
   }
 }
 

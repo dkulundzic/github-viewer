@@ -32,6 +32,7 @@ struct RepositoriesView: View {
               navigationPath.append(.user(user))
             }
             .animation(.default, value: viewModel.selectedSortOption)
+            .searchable(text: $searchQuery)
           }
         }
 
@@ -43,7 +44,6 @@ struct RepositoriesView: View {
         }
         .padding(.trailing, 16)
       }
-      .searchable(text: $searchQuery)
       .onFirstAppearTask {
         await viewModel.loadRepositores()
       }
