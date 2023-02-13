@@ -1,2 +1,5 @@
 "repositories_list_title" = "Repositories";
 "repositories_list_no_repos_available_message" = "No repositories available";
+"repositories_list_sorting_stars" = "Stars";
+"repositories_list_sorting_forks" = "Forks";
+"repositories_list_sorting_updated" = "Updated";

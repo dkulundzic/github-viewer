@@ -17,7 +17,7 @@ extension RepositoriesView {
               if option == selectedSortOption {
                 Image(systemName: "checkmark")
               }
-              Text(option.rawValue)
+              Text(option.title)
             }
           }
         }

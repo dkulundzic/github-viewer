@@ -4,42 +4,59 @@ import GithubViewerNetworking
 import GithubViewerUserInterface
 
 struct RepositoriesView: View {
+  enum Route: Hashable {
+    case repository(Repository)
+    case user(User)
+  }
+
+  @State private var navigationPath: [Route] = []
   @State private var searchQuery = ""
   @StateObject private var viewModel = RepositoriesViewModel(
     repositoriesNetworkService: DefaultRepositoriesNetworkService()
   )
 
   var body: some View {
-    VStack {
-      if viewModel.isLoading {
-        ProgressView()
-      } else {
-        if viewModel.repositories.isEmpty {
-          Text(L10n.repositoriesListNoReposAvailableMessage)
-            .font(.title3)
+    NavigationStack(path: $navigationPath) {
+      VStack {
+        if viewModel.isLoading {
+          ProgressView()
         } else {
-          ListView(repositories: viewModel.repositories)
+          if viewModel.repositories.isEmpty {
+            Text(L10n.repositoriesListNoReposAvailableMessage)
+              .font(.title3)
+          } else {
+            ListView(repositories: viewModel.repositories) { repository in
+              navigationPath.append(.repository(repository))
+            } onUserThumbnailTap: { user in
+              navigationPath.append(.user(user))
+            }
             .animation(.default, value: viewModel.selectedSortOption)
+          }
         }
       }
-    }
-    .searchable(text: $searchQuery)
-    .onFirstAppearTask {
-      await viewModel.loadRepositores()
-    }
-    .onChange(of: searchQuery) { query in
-      viewModel.onSearchQueryUpdated(query)
-    }
-    .navigationDestination(for: Repository.self) { repository in
-      RepositoryDetailsView(repository: repository)
-    }
-    .navigationTitle(L10n.repositoriesListTitle)
-    .toolbar {
-      MenuView(
-        options: viewModel.sortOptions,
-        selectedSortOption: viewModel.selectedSortOption
-      ) { option in
-        viewModel.onMenuActionTap(option)
+      .searchable(text: $searchQuery)
+      .onFirstAppearTask {
+        await viewModel.loadRepositores()
+      }
+      .onChange(of: searchQuery) { query in
+        viewModel.onSearchQueryUpdated(query)
+      }
+      .navigationDestination(for: Route.self) { route in
+        switch route {
+        case .repository(let repository):
+          RepositoryDetailsView(repository: repository)
+        case .user(let user):
+          UserDetailsView(user: user)
+        }
+      }
+      .navigationTitle(L10n.repositoriesListTitle)
+      .toolbar {
+        MenuView(
+          options: viewModel.sortOptions,
+          selectedSortOption: viewModel.selectedSortOption
+        ) { option in
+          viewModel.onMenuActionTap(option)
+        }
       }
     }
   }

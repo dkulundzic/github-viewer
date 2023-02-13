@@ -10,6 +10,7 @@ import GithubViewerNetworking
   @Published var selectedSortOption: RepositorySortingOption?
 
   let repositoriesNetworkService: RepositoriesNetworkService
+  private var originalRepositories: [Repository] = []
   private var bag = Set<AnyCancellable>()
   private let defaultQuery = "Test"
   private let searchQuerySubject = PassthroughSubject<String, Never>()
@@ -27,8 +28,9 @@ extension RepositoriesViewModel {
 
     do {
       let normalizedQuery = query ?? defaultQuery
-      repositories = try await repositoriesNetworkService
+      originalRepositories = try await repositoriesNetworkService
         .fetchRepositories(withQuery: normalizedQuery)
+      repositories = sortedRepositories(using: selectedSortOption)
     } catch {
       print(error)
     }
@@ -42,21 +44,7 @@ extension RepositoriesViewModel {
 
   func onMenuActionTap(_ option: RepositorySortingOption) {
     selectedSortOption = option == selectedSortOption ? nil : option
-
-    guard let sortOption = selectedSortOption else {
-      return
-    }
-
-    repositories = repositories.sorted { lhs, rhs in
-      switch sortOption {
-      case .forks:
-        return lhs.numOfForks > rhs.numOfForks
-      case .stars:
-        return lhs.numOfStars > rhs.numOfStars
-      case .updated:
-        return true
-      }
-    }
+    repositories = sortedRepositories(using: selectedSortOption)
   }
 }
 
@@ -69,5 +57,22 @@ private extension RepositoriesViewModel {
         Task { await self.loadRepositores(using: query) }
       }
       .store(in: &bag)
+  }
+
+  func sortedRepositories(using sortOption: RepositorySortingOption?) -> [Repository] {
+    guard let option = sortOption else {
+      return originalRepositories
+    }
+
+    return originalRepositories.sorted { lhs, rhs in
+      switch option {
+      case .forks:
+        return lhs.numOfForks > rhs.numOfForks
+      case .stars:
+        return lhs.numOfStars > rhs.numOfStars
+      case .updated:
+        return lhs.updated > rhs.updated
+      }
+    }
   }
 }

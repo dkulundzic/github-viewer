@@ -4,13 +4,18 @@ import GithubViewerModel
 extension RepositoriesView {
   struct ListView: View {
     let repositories: [Repository]
+    let onRepositoryTap: (Repository) -> Void
+    let onUserThumbnailTap: (User) -> Void
 
     var body: some View {
       ScrollView {
         VStack(alignment: .leading) {
           ForEach(repositories) { repository in
-            NavigationLink(value: repository) {
-              ItemView(repository: repository)
+            ItemView(repository: repository) {
+              onUserThumbnailTap(repository.user)
+            }
+            .onTapGesture {
+              onRepositoryTap(repository)
             }
           }
         }
@@ -21,8 +26,6 @@ extension RepositoriesView {
 
 struct ListView_Previews: PreviewProvider {
   static var previews: some View {
-    RepositoriesView.ListView(repositories: [
-      .mock, .mock, .mock, .mock, .mock, .mock
-    ])
+    RepositoriesView.ListView(repositories: []) { _ in } onUserThumbnailTap: { _ in }
   }
 }

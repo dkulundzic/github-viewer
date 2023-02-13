@@ -12,6 +12,12 @@ import Foundation
 internal enum L10n {
   /// No repositories available
   internal static let repositoriesListNoReposAvailableMessage = L10n.tr("Localizable", "repositories_list_no_repos_available_message", fallback: "No repositories available")
+  /// Forks
+  internal static let repositoriesListSortingForks = L10n.tr("Localizable", "repositories_list_sorting_forks", fallback: "Forks")
+  /// Stars
+  internal static let repositoriesListSortingStars = L10n.tr("Localizable", "repositories_list_sorting_stars", fallback: "Stars")
+  /// Updated
+  internal static let repositoriesListSortingUpdated = L10n.tr("Localizable", "repositories_list_sorting_updated", fallback: "Updated")
   /// Repositories
   internal static let repositoriesListTitle = L10n.tr("Localizable", "repositories_list_title", fallback: "Repositories")
 }

@@ -12,6 +12,8 @@ public final class DefaultRepositoriesNetworkService: RepositoriesNetworkService
     let resource = RepositoriesResource.search(query: query)
     print(#function, resource.url)
     let (data, _) = try await URLSession.shared.data(from: resource.url)
-    return try JSONDecoder().decode(RepositoriesSearchResponse.self, from: data).items
+    let decoder = JSONDecoder()
+    decoder.dateDecodingStrategy = .iso8601
+    return try decoder.decode(RepositoriesSearchResponse.self, from: data).items
   }
 }
