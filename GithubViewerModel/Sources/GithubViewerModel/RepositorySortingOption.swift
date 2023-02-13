@@ -1,7 +1,7 @@
 import Foundation
 
-public enum RepositorySortingOption: String, CaseIterable, Identifiable {
-  case stars
+public enum RepositorySortingOption: Int, CaseIterable, Identifiable {
+  case stars = 0
   case forks
   case updated
 

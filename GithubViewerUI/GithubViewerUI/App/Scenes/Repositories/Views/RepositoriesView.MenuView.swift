@@ -22,8 +22,15 @@ extension RepositoriesView {
           }
         }
       } label: {
+        #warning("TODO: Convert into reusable View")
         Image(systemName: "arrow.up.arrow.down")
           .foregroundColor(.black)
+          .frame(width: 50, height: 50)
+          .background {
+            Circle()
+              .fill(.white)
+              .shadow(radius: 16)
+          }
       }
     }
   }

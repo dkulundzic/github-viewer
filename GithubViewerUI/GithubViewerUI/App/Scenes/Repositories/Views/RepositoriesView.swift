@@ -4,7 +4,7 @@ import GithubViewerNetworking
 import GithubViewerUserInterface
 
 struct RepositoriesView: View {
-  enum Route: Hashable {
+  private enum Route: Hashable {
     case repository(Repository)
     case user(User)
   }
@@ -17,9 +17,10 @@ struct RepositoriesView: View {
 
   var body: some View {
     NavigationStack(path: $navigationPath) {
-      VStack {
+      ZStack(alignment: .bottomTrailing) {
         if viewModel.isLoading {
           ProgressView()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {
           if viewModel.repositories.isEmpty {
             Text(L10n.repositoriesListNoReposAvailableMessage)
@@ -33,6 +34,14 @@ struct RepositoriesView: View {
             .animation(.default, value: viewModel.selectedSortOption)
           }
         }
+
+        MenuView(
+          options: viewModel.sortOptions,
+          selectedSortOption: viewModel.selectedSortOption
+        ) { option in
+          viewModel.onMenuActionTap(option)
+        }
+        .padding(.trailing, 16)
       }
       .searchable(text: $searchQuery)
       .onFirstAppearTask {
@@ -50,14 +59,6 @@ struct RepositoriesView: View {
         }
       }
       .navigationTitle(L10n.repositoriesListTitle)
-      .toolbar {
-        MenuView(
-          options: viewModel.sortOptions,
-          selectedSortOption: viewModel.selectedSortOption
-        ) { option in
-          viewModel.onMenuActionTap(option)
-        }
-      }
     }
   }
 }
