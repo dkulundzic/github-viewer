@@ -1,4 +1,5 @@
 import SwiftUI
+import GithubViewerModel
 
 struct ContentView: View {
   var body: some View {
