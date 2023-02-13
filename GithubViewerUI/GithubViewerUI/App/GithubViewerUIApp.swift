@@ -1,6 +1,4 @@
 import SwiftUI
-import GithubViewerModel
-import GithubViewerNetworking
 
 @main
 struct GithubViewerUIApp: App {
