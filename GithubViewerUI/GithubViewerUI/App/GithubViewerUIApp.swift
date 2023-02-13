@@ -4,7 +4,9 @@ import SwiftUI
 struct GithubViewerUIApp: App {
   var body: some Scene {
     WindowGroup {
-      RepositoriesView()
+      NavigationStack {
+        RepositoriesView()
+      }
     }
   }
 }

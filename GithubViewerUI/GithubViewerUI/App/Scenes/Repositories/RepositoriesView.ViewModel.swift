@@ -5,6 +5,7 @@ import GithubViewerNetworking
 extension RepositoriesView {
   @MainActor final class ViewModel: ObservableObject {
     @Published var repositories = [Repository]()
+    @Published var isLoading = false
     let repositoriesNetworkService: RepositoriesNetworkService
 
     init(repositoriesNetworkService: RepositoriesNetworkService) {
@@ -12,6 +13,9 @@ extension RepositoriesView {
     }
 
     func loadRepositores() async {
+      isLoading = true
+      defer { isLoading = false }
+
       do {
         repositories = try await repositoriesNetworkService.fetchRepositories(withQuery: "Q")
       } catch {

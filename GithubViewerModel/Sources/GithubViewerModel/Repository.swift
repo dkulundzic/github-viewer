@@ -3,12 +3,12 @@ import Foundation
 public struct Repository: Decodable, Identifiable {
   public struct Author: Decodable {
     public let id: Int
-    public let name: String?
+    public let name: String
     public let image: URL
 
     private enum CodingKeys: String, CodingKey {
       case id
-      case name
+      case name = "login"
       case image = "avatar_url"
     }
   }
@@ -31,6 +31,16 @@ public struct Repository: Decodable, Identifiable {
     case numOfWatchers = "watchers_count"
     case numOfForks = "forks_count"
     case numOfIssues = "open_issues_count"
+  }
+}
+
+extension Repository: Hashable {
+  public static func ==(lhs: Repository, rhs: Repository) -> Bool {
+    lhs.id == rhs.id
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    hasher.combine(id)
   }
 }
 

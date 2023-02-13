@@ -1,13 +1,16 @@
 import SwiftUI
+import GithubViewerModel
 
 struct RepositoryDetailsView: View {
+  let repository: Repository
+
   var body: some View {
-    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+    Text(repository.name)
   }
 }
 
 struct RepositoryDetailsView_Previews: PreviewProvider {
   static var previews: some View {
-    RepositoryDetailsView()
+    RepositoryDetailsView(repository: .mock)
   }
 }
