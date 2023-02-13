@@ -4,7 +4,7 @@ import GithubViewerNetworking
 
 extension RepositoriesView {
   @MainActor final class ViewModel: ObservableObject {
-    @Published var repositories = [Repository]()
+    @Published var repositories: [Repository] = []
     @Published var isLoading = false
     let repositoriesNetworkService: RepositoriesNetworkService
 
