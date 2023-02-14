@@ -22,6 +22,7 @@ extension RepositoryDetailsViewModel {
     let watchers: Int
     let stars: Int
     let issues: Int
+    let forks: Int
     let userName: String
     let userImageUrl: URL
     let userUrl: URL
@@ -40,6 +41,7 @@ extension RepositoryDetailsViewModel {
       self.watchers = repository.numOfWatchers
       self.stars = repository.numOfStars
       self.issues = repository.numOfIssues
+      self.forks = repository.numOfForks
       self.userName = repository.user.name
       self.userImageUrl = repository.user.image
       self.userUrl = repository.user.url

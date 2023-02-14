@@ -11,14 +11,6 @@ struct RepositoryDetailsView: View {
   var body: some View {
     Form {
       Section {
-        RepositoryDetailsStatsView(
-          watchers: viewModel.details.watchers,
-          stars: viewModel.details.stars,
-          issues: viewModel.details.issues
-        )
-      }
-
-      Section {
         VStack(alignment: .leading, spacing: 4) {
           Text(viewModel.details.name)
             .font(.headline)
@@ -50,6 +42,15 @@ struct RepositoryDetailsView: View {
             data: viewModel.details.visibility
           )
         }
+      }
+
+      Section {
+        RepositoryDetailsStatsView(
+          watchers: viewModel.details.watchers,
+          stars: viewModel.details.stars,
+          issues: viewModel.details.issues,
+          forks: viewModel.details.forks
+        )
       }
 
 #warning("TODO: Localise")
