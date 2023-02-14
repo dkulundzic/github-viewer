@@ -7,7 +7,9 @@ public struct Repository: Decodable, Identifiable {
 
   public let id: Int
   public let name: String
+  public let description: String
   public let updated: Date
+  public let url: URL
   public let user: User
   public let numOfWatchers: Int
   public let numOfForks: Int
@@ -17,7 +19,9 @@ public struct Repository: Decodable, Identifiable {
   private enum CodingKeys: String, CodingKey {
     case id
     case name
+    case description
     case updated = "updated_at"
+    case url = "html_url"
     case user = "owner"
     case numOfWatchers = "watchers_count"
     case numOfForks = "forks_count"
@@ -41,7 +45,9 @@ extension Repository: Mockable {
     Repository(
       id: (0...10000000).randomElement()!,
       name: "Test Repository",
+      description: "Apache JMeter open-source load testing tool for analyzing and measuring the performance of a variety of services",
       updated: Date(),
+      url: URL(string: "https://github.com/dkulundzic/github-viewer")!,
       user: .mock,
       numOfWatchers: (0...1000).randomElement()!,
       numOfForks: (0...10).randomElement()!,

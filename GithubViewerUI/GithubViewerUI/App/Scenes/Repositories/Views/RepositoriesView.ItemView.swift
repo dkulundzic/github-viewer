@@ -9,19 +9,12 @@ extension RepositoriesView {
 
     var body: some View {
       HStack {
-        AsyncImage(
-          url: repository.thumbnail) { image in
-            image
-              .resizable()
-              .aspectRatio(contentMode: .fill)
-              .frame(width: imageSize, height: imageSize)
-              .cornerRadius(16)
-              .onTapGesture(perform: onUserThumbnailTap)
-          } placeholder: {
-            ProgressView()
-              .frame(width: imageSize, height: imageSize)
-          }
-
+        AsyncImageWithProgress(
+          url: repository.thumbnail,
+          imageSize: imageSize,
+          onTap: onUserThumbnailTap
+        )
+        
         VStack(alignment: .leading, spacing: 8) {
           Text(repository.name)
           Text(repository.user.name)

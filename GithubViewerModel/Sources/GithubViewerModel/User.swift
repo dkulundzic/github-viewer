@@ -4,11 +4,13 @@ public struct User: Decodable {
   public let id: Int
   public let name: String
   public let image: URL
+  public let url: URL
 
   private enum CodingKeys: String, CodingKey {
     case id
     case name = "login"
     case image = "avatar_url"
+    case url = "html_url"
   }
 }
 
@@ -27,7 +29,8 @@ extension User: Mockable {
     .init(
       id: (0...10000000).randomElement()!,
       name: "kriskowal",
-      image: URL(string: "https://avatars.githubusercontent.com/u/60294?v=4")!
+      image: URL(string: "https://avatars.githubusercontent.com/u/60294?v=4")!,
+      url: URL(string: "https://github.com/dkulundzic")!      
     )
   }
 }

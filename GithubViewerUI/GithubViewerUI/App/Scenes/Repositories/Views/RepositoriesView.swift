@@ -11,9 +11,11 @@ struct RepositoriesView: View {
 
   @State private var navigationPath: [Route] = []
   @State private var searchQuery = ""
-  @StateObject private var viewModel = RepositoriesViewModel(
-    repositoriesNetworkService: DefaultRepositoriesNetworkService()
-  )
+  @ObservedObject private var viewModel: RepositoriesViewModel
+
+  init(viewModel: RepositoriesViewModel) {
+    self.viewModel = viewModel
+  }
 
   var body: some View {
     NavigationStack(path: $navigationPath) {
@@ -31,7 +33,7 @@ struct RepositoriesView: View {
             } onUserThumbnailTap: { user in
               navigationPath.append(.user(user))
             }
-            .animation(.default, value: viewModel.selectedSortOption)
+            .transition(.opacity)
           }
         }
 
@@ -42,7 +44,10 @@ struct RepositoriesView: View {
           viewModel.onMenuActionTap(option)
         }
         .padding(.trailing, 16)
+        .transition(.opacity)
       }
+      .animation(.default, value: viewModel.selectedSortOption)
+      .animation(.default, value: viewModel.isLoading)
       .searchable(text: $searchQuery)
       .onFirstAppearTask {
         await viewModel.loadRepositores()
@@ -53,7 +58,7 @@ struct RepositoriesView: View {
       .navigationDestination(for: Route.self) { route in
         switch route {
         case .repository(let repository):
-          RepositoryDetailsView(repository: repository)
+          RepositoryDetailsView(viewModel: .init(repository: repository))
         case .user(let user):
           UserDetailsView(user: user)
         }
@@ -65,6 +70,10 @@ struct RepositoriesView: View {
 
 struct RepositoriesView_Previews: PreviewProvider {
   static var previews: some View {
-    RepositoriesView()
+    RepositoriesView(
+      viewModel: .init(
+        repositoriesNetworkService: DefaultRepositoriesNetworkService()
+      )
+    )
   }
 }
