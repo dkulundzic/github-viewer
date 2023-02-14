@@ -7,7 +7,7 @@ public struct Repository: Decodable, Identifiable {
 
   public let id: Int
   public let name: String
-  public let description: String
+  public let description: String?
   public let updated: Date
   public let url: URL
   public let user: User
