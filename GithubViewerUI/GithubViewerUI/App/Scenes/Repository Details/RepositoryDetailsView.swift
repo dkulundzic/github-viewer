@@ -25,7 +25,10 @@ struct RepositoryDetailsView: View {
         )
 
         LazyVGrid(
-          columns: [GridItem(), GridItem()],
+          columns: [
+            GridItem(alignment: .topLeading),
+            GridItem(alignment: .topLeading)
+          ],
           alignment: .listRowSeparatorLeading
         ) {
 #warning("TODO: Localise")
@@ -43,18 +46,11 @@ struct RepositoryDetailsView: View {
 
 #warning("TODO: Localise")
       Section("Owned by") {
-        Link(destination: viewModel.details.userUrl) {
-          DisclosureContainerView {
-            HStack {
-              AsyncImageWithProgress(
-                url: viewModel.details.userImageUrl,
-                imageSize: 50
-              )
-              Text(viewModel.details.userName)
-                .padding(.leading, 8)
-            }
-          }
-        }
+        RepositoryDetailsUserView(
+          url: viewModel.details.userUrl,
+          imageUrl: viewModel.details.userImageUrl,
+          name: viewModel.details.userName
+        )
       }
 
       Section {
