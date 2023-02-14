@@ -13,23 +13,31 @@ import GithubViewerModel
 
 extension RepositoryDetailsViewModel {
   struct RepositoryDetails {
-    let repositoryName: String
-    let repositoryDescription: String
-    let repositoryLastUpdated: String
-    let repositoryUrl: URL
+    let name: String
+    let description: String
+    let language: String
+    let lastUpdated: String
+    let url: URL
+    let watchers: Int
+    let stars: Int
+    let issues: Int
     let userName: String
     let userImageUrl: URL
     let userUrl: URL
 
     init(repository: Repository) {
-      self.repositoryName = repository.name
+      self.name = repository.name
       #warning("TODO: Localise")
-      self.repositoryDescription = repository.description ?? "No description provided"
-      self.repositoryLastUpdated = repository.updated.formatted(
+      self.description = repository.description ?? "No description provided"
+      self.language = repository.language ?? "Not available"
+      self.lastUpdated = repository.updated.formatted(
         date: .abbreviated,
         time: .omitted
       )
-      self.repositoryUrl = repository.url
+      self.url = repository.url
+      self.watchers = repository.numOfWatchers
+      self.stars = repository.numOfStars
+      self.issues = repository.numOfIssues
       self.userName = repository.user.name
       self.userImageUrl = repository.user.image
       self.userUrl = repository.user.url

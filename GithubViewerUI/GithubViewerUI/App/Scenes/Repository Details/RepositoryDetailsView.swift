@@ -11,23 +11,32 @@ struct RepositoryDetailsView: View {
   var body: some View {
     Form {
       Section {
-        Text(viewModel.details.repositoryDescription)
-          .multilineTextAlignment(.leading)
-          .lineLimit(6)
+        RepositoryDetailsStatsView(
+          watchers: viewModel.details.watchers,
+          stars: viewModel.details.stars,
+          issues: viewModel.details.issues
+        )
+      }
+
+      Section {
+        NamedDataView(
+          name: viewModel.details.name,
+          data: viewModel.details.description
+        )
 
         LazyVGrid(
           columns: [GridItem(), GridItem()],
-          alignment: .leading
+          alignment: .listRowSeparatorLeading
         ) {
 #warning("TODO: Localise")
           NamedDataView(
-            name: "Name",
-            data: viewModel.details.repositoryName
+            name: "Last updated",
+            data: viewModel.details.lastUpdated
           )
 #warning("TODO: Localise")
           NamedDataView(
-            name: "Last updated",
-            data: viewModel.details.repositoryLastUpdated
+            name: "Language",
+            data: viewModel.details.language
           )
         }
       }
@@ -49,7 +58,7 @@ struct RepositoryDetailsView: View {
       }
 
       Section {
-        Link(destination: viewModel.details.repositoryUrl) {
+        Link(destination: viewModel.details.url) {
           HStack {
 #warning("TODO: Localise")
             Text("See on the web")
