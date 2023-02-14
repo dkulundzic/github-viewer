@@ -19,10 +19,12 @@ struct RepositoryDetailsView: View {
       }
 
       Section {
-        NamedDataView(
-          name: viewModel.details.name,
-          data: viewModel.details.description
-        )
+        VStack(alignment: .leading, spacing: 4) {
+          Text(viewModel.details.name)
+            .font(.headline)
+          Text(viewModel.details.description)
+            .font(.body)
+        }
 
         LazyVGrid(
           columns: [
@@ -40,6 +42,12 @@ struct RepositoryDetailsView: View {
           NamedDataView(
             name: "Language",
             data: viewModel.details.language
+          )
+
+#warning("TODO: Localise")
+          NamedDataView(
+            name: "Visibility",
+            data: viewModel.details.visibility
           )
         }
       }

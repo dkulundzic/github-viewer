@@ -9,6 +9,7 @@ public struct Repository: Decodable, Identifiable {
   public let name: String
   public let description: String?
   public let language: String?
+  public let isPrivate: Bool
   public let updated: Date
   public let url: URL
   public let user: User
@@ -22,6 +23,7 @@ public struct Repository: Decodable, Identifiable {
     case name
     case description
     case language
+    case isPrivate = "private"
     case updated = "updated_at"
     case url = "html_url"
     case user = "owner"
@@ -49,6 +51,7 @@ extension Repository: Mockable {
       name: "Test Repository",
       description: "Apache JMeter open-source load testing tool for analyzing and measuring the performance of a variety of services",
       language: "swift",
+      isPrivate: true,
       updated: Date(),
       url: URL(string: "https://github.com/dkulundzic/github-viewer")!,
       user: .mock,

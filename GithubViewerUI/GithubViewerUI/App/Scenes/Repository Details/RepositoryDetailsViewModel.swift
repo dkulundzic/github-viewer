@@ -16,6 +16,7 @@ extension RepositoryDetailsViewModel {
     let name: String
     let description: String
     let language: String
+    let visibility: String
     let lastUpdated: String
     let url: URL
     let watchers: Int
@@ -30,6 +31,7 @@ extension RepositoryDetailsViewModel {
       #warning("TODO: Localise")
       self.description = repository.description ?? "No description provided"
       self.language = repository.language ?? "Not available"
+      self.visibility = repository.isPrivate ? "Private" : "Public"
       self.lastUpdated = repository.updated.formatted(
         date: .abbreviated,
         time: .omitted
