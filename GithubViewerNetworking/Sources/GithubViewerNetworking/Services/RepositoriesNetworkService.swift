@@ -17,3 +17,11 @@ public final class DefaultRepositoriesNetworkService: RepositoriesNetworkService
     return try decoder.decode(RepositoriesSearchResponse.self, from: data).items
   }
 }
+
+public final class TestRepositoriesNetworkService: RepositoriesNetworkService {
+  public init() { }
+
+  public func fetchRepositories(withQuery query: String) async throws -> [Repository] {
+    []
+  }
+}

@@ -4,26 +4,22 @@ import GithubViewerModel
 
 final class RepositoriesReducer: ReducerProtocol {
   @Dependency(\.repositoriesNetworkService) private var repositoriesNetworkService
+  @Dependency(\.mainQueue) private var queue
 
   struct RepositoriesState: Equatable {
-    var refQuery: String {
-      query ?? defaultQuery
-    }
-
-    var query: String?
+    var query: String = "Kingfisher"
     var repositories: [Repository] = []
     var originalRepositories: [Repository] = []
     var isLoading = false
     var selectedSortOption: RepositorySortingOption?
     let sortOptions = RepositorySortingOption.sorted
-    let defaultQuery = "Test"
 
     init(selectedSortOption: RepositorySortingOption? = nil) {
       self.selectedSortOption = selectedSortOption
     }
   }
 
-  enum RepositoriesAction {
+  enum RepositoriesAction: Equatable {
     case onFirstAppear
     case onSearchTextChanged(String)
     case onSearchTextDelayCompleted(String)
@@ -38,16 +34,16 @@ final class RepositoriesReducer: ReducerProtocol {
   ) -> EffectTask<RepositoriesAction> {
     switch action {
     case .onFirstAppear:
-      state.isLoading = true
       return .send(.onLoadRepositories)
 
-    case .onSearchTextChanged(let text):
+    case .onSearchTextChanged(let query):
       struct SearchDebounceID: Hashable { }
-      return .task { .onSearchTextDelayCompleted(text) }
-        .debounce(id: SearchDebounceID(), for: 0.5, scheduler: DispatchQueue.main)
+      return .task { .onSearchTextDelayCompleted(query) }
+        .removeDuplicates()
+        .eraseToEffect()
+        .debounce(id: SearchDebounceID(), for: 0.5, scheduler: queue)
 
     case .onSearchTextDelayCompleted(let query):
-      state.isLoading = true
       state.query = query
       return .send(.onLoadRepositories)
 
@@ -57,9 +53,15 @@ final class RepositoriesReducer: ReducerProtocol {
       return .none
 
     case .onLoadRepositories:
-      return .task { [refQuery = state.refQuery] in
+      guard !state.query.isEmpty else {
+        return . none
+      }
+
+      state.isLoading = true
+
+      return .task { [query = state.query] in
         return await .onRepositoriesLoaded(
-          try self.repositoriesNetworkService.fetchRepositories(withQuery: refQuery)
+          try self.repositoriesNetworkService.fetchRepositories(withQuery: query)
         )
       }
 
