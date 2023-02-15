@@ -1,18 +1,9 @@
 import Foundation
+import ComposableArchitecture
 import GithubViewerModel
 
-@MainActor final class RepositoryDetailsViewModel: ObservableObject {
-  @Published var details: RepositoryDetails
-  private let repository: Repository
-
-  init(repository: Repository) {
-    self.repository = repository
-    self.details = RepositoryDetails(repository: repository)
-  }
-}
-
-extension RepositoryDetailsViewModel {
-  struct RepositoryDetails {
+final class RepositoryReducer: ReducerProtocol {
+  struct State: Equatable {
     let name: String
     let description: String
     let language: String
@@ -47,4 +38,8 @@ extension RepositoryDetailsViewModel {
       self.userUrl = repository.user.url
     }
   }
+
+  enum Action { }
+
+  func reduce(into state: inout State, action: Action) -> EffectTask<Action> { }
 }

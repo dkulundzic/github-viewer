@@ -57,7 +57,12 @@ struct RepositoriesView: View {
         .navigationDestination(for: Route.self) { route in
           switch route {
           case .repository(let repository):
-            RepositoryDetailsView(viewModel: .init(repository: repository))
+            RepositoryView(
+              store: Store(
+                initialState: RepositoryReducer.State(repository: repository),
+                reducer: RepositoryReducer()
+              )
+            )
           case .user(let user):
             UserDetailsView(user: user)
           }

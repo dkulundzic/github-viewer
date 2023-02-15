@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RepositoryDetailsStatsView: View {
+struct RepositoryStatsView: View {
   let watchers: Int
   let stars: Int
   let issues: Int
@@ -40,7 +40,7 @@ struct RepositoryDetailsStatsView: View {
 
 struct RepositoryDetailsStatsView_Previews: PreviewProvider {
   static var previews: some View {
-    RepositoryDetailsStatsView(
+    RepositoryStatsView(
       watchers: 51000,
       stars: 301,
       issues: 7,
