@@ -38,9 +38,8 @@ final class RepositoriesReducer: ReducerProtocol {
 
     case .onSearchTextChanged(let query):
       struct SearchDebounceID: Hashable { }
+
       return .task { .onSearchTextDelayCompleted(query) }
-        .removeDuplicates()
-        .eraseToEffect()
         .debounce(id: SearchDebounceID(), for: 0.5, scheduler: queue)
 
     case .onSearchTextDelayCompleted(let query):

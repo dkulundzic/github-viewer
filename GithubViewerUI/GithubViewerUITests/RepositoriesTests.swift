@@ -54,7 +54,41 @@ final class RepositoriesTests: XCTestCase {
     }
   }
 
-  func testSearchTextDebouncing() async {
-    
+  func testSearchTextDebounced() async {
+    let reducer = RepositoriesReducer()
+    let store = TestStore(
+      initialState: RepositoriesReducer.State(),
+      reducer: reducer
+    )
+
+    let query = "Test"
+    await store.send(.onSearchTextDelayCompleted(query)) {
+      $0.query = query
+    }
+
+    await store.receive(.onLoadRepositories) {
+      $0.isLoading = true
+    }
+
+    await store.receive(.onRepositoriesLoaded([])) {
+      $0.isLoading = false
+      $0.repositories = []
+      $0.originalRepositories = []
+    }
+  }
+
+  func testEmptySearchTextDebounced() async {
+    let reducer = RepositoriesReducer()
+    let store = TestStore(
+      initialState: RepositoriesReducer.State(),
+      reducer: reducer
+    )
+
+    let query = ""
+    await store.send(.onSearchTextDelayCompleted(query)) {
+      $0.query = query
+    }
+
+    await store.receive(.onLoadRepositories)
   }
 }
