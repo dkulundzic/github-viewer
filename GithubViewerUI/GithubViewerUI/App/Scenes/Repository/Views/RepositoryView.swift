@@ -23,20 +23,18 @@ struct RepositoryView: View {
             ],
             alignment: .listRowSeparatorLeading
           ) {
-#warning("TODO: Localise")
             NamedDataView(
-              name: "Last updated",
+              name: L10n.repositoryLastUpdated,
               data: viewStore.state.lastUpdated
             )
-#warning("TODO: Localise")
+
             NamedDataView(
-              name: "Language",
+              name: L10n.repositoryLanguage,
               data: viewStore.state.language
             )
 
-#warning("TODO: Localise")
             NamedDataView(
-              name: "Visibility",
+              name: L10n.repositoryVisibility,
               data: viewStore.state.visibility
             )
           }
@@ -51,8 +49,7 @@ struct RepositoryView: View {
           )
         }
 
-#warning("TODO: Localise")
-        Section("Owned by") {
+        Section(L10n.repositoryOwnedBy) {
           RepositoryUserView(
             url: viewStore.state.userUrl,
             imageUrl: viewStore.state.userImageUrl,
@@ -63,8 +60,7 @@ struct RepositoryView: View {
         Section {
           Link(destination: viewStore.state.url) {
             HStack {
-#warning("TODO: Localise")
-              Text("See on the web")
+              Text(L10n.repositoryWebPageCta)
               Spacer()
               Image(systemName: "chevron.forward")
             }

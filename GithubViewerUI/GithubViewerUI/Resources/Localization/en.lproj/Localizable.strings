@@ -3,3 +3,13 @@
 "repositories_list_sorting_stars" = "Stars";
 "repositories_list_sorting_forks" = "Forks";
 "repositories_list_sorting_updated" = "Updated";
+
+"repository_description_placeholder" = "No description provided";
+"repository_language_placeholder" = "Not available";
+"repository_visibility_public" = "Public";
+"repository_visibility_private" = "Private";
+"repository_last_updated" = "Last updated";
+"repository_language" = "Language";
+"repository_visibility" = "Visibility";
+"repository_owned_by" = "Owned by";
+"repository_web_page_cta" = "See on the web";

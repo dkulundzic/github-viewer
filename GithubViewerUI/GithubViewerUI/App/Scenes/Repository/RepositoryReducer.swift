@@ -20,10 +20,9 @@ final class RepositoryReducer: ReducerProtocol {
 
     init(repository: Repository) {
       self.name = repository.name
-      #warning("TODO: Localise")
-      self.description = repository.description ?? "No description provided"
-      self.language = repository.language ?? "Not available"
-      self.visibility = repository.isPrivate ? "Private" : "Public"
+      self.description = repository.description ?? L10n.repositoryDescriptionPlaceholder
+      self.language = repository.language ?? L10n.repositoryLanguagePlaceholder
+      self.visibility = repository.isPrivate ? L10n.repositoryVisibilityPrivate : L10n.repositoryVisibilityPublic
       self.lastUpdated = repository.updated.formatted(
         date: .abbreviated,
         time: .omitted
