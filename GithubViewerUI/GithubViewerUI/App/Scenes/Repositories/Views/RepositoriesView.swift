@@ -49,7 +49,7 @@ struct RepositoriesView: View {
         .animation(.default, value: viewStore.state.isLoading)
         .searchable(text: $searchQuery)
         .onFirstAppearTask {
-          viewStore.send(.firstAppear)
+          viewStore.send(.onFirstAppear)
         }
         .onChange(of: searchQuery) { query in
           viewStore.send(.onSearchTextChanged(query))

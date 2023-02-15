@@ -24,10 +24,12 @@ final class RepositoriesReducer: ReducerProtocol {
   }
 
   enum RepositoriesAction {
-    case firstAppear
+    case onFirstAppear
     case onSearchTextChanged(String)
-    case onRepositoriesLoaded([Repository])
+    case onSearchTextDelayCompleted(String)
     case onMenuActionTap(RepositorySortingOption)
+    case onLoadRepositories
+    case onRepositoriesLoaded([Repository])
   }
 
   func reduce(
@@ -35,27 +37,32 @@ final class RepositoriesReducer: ReducerProtocol {
     action: RepositoriesAction
   ) -> EffectTask<RepositoriesAction> {
     switch action {
-    case .firstAppear:
+    case .onFirstAppear:
       state.isLoading = true
-      return .task { [refQuery = state.refQuery] in
-        return await .onRepositoriesLoaded(
-          try self.repositoriesNetworkService.fetchRepositories(withQuery: refQuery)
-        )
-      }
+      return .send(.onLoadRepositories)
+
     case .onSearchTextChanged(let text):
       struct SearchDebounceID: Hashable { }
+      return .task { .onSearchTextDelayCompleted(text) }
+        .debounce(id: SearchDebounceID(), for: 0.5, scheduler: DispatchQueue.main)
 
-      state.query = text
-      return .task { [refQuery = state.refQuery] in
-        return await .onRepositoriesLoaded(
-          try self.repositoriesNetworkService.fetchRepositories(withQuery: refQuery)
-        )
-      }
-      .debounce(id: SearchDebounceID(), for: 0.5, scheduler: DispatchQueue.main)
+    case .onSearchTextDelayCompleted(let query):
+      state.isLoading = true
+      state.query = query
+      return .send(.onLoadRepositories)
+
     case .onMenuActionTap(let option):
       state.selectedSortOption = option == state.selectedSortOption ? nil : option
       state.repositories = state.originalRepositories.sorted(using: state.selectedSortOption)
       return .none
+
+    case .onLoadRepositories:
+      return .task { [refQuery = state.refQuery] in
+        return await .onRepositoriesLoaded(
+          try self.repositoriesNetworkService.fetchRepositories(withQuery: refQuery)
+        )
+      }
+
     case .onRepositoriesLoaded(let repos):
       state.isLoading = false
       state.originalRepositories = repos

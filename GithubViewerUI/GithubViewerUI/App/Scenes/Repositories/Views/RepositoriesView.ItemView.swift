@@ -14,7 +14,7 @@ extension RepositoriesView {
           imageSize: imageSize,
           onTap: onUserThumbnailTap
         )
-        
+
         VStack(alignment: .leading, spacing: 8) {
           Text(repository.name)
           Text(repository.user.name)
