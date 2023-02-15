@@ -1,5 +1,6 @@
 import SwiftUI
 import GithubViewerNetworking
+import ComposableArchitecture
 
 typealias Action = () -> Void
 typealias ParameterizedAction<T> = (T) -> Void
@@ -8,8 +9,11 @@ typealias ParameterizedAction<T> = (T) -> Void
 struct GithubViewerUIApp: App {
   var body: some Scene {
     WindowGroup {
-      RepositoriesView(viewModel: .init(
-        repositoriesNetworkService: DefaultRepositoriesNetworkService())
+      RepositoriesView(
+        store: Store(
+          initialState: RepositoriesReducer.State(),
+          reducer: RepositoriesReducer()
+        )
       )
     }
   }
