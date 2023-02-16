@@ -22,11 +22,11 @@ struct AsyncImageWithProgress: View {
         .aspectRatio(contentMode: .fill)
         .cornerRadius(16)
         .frame(width: imageSize, height: imageSize)
-        .onTapGesture { onTap?() }
     } placeholder: {
       ProgressView()
         .frame(width: imageSize, height: imageSize)
     }
+    .onTapGesture { onTap?() }
   }
 }
 
