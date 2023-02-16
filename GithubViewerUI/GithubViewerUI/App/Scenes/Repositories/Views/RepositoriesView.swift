@@ -1,7 +1,6 @@
 import SwiftUI
 import GithubViewerModel
 import GithubViewerNetworking
-import GithubViewerUserInterface
 import ComposableArchitecture
 
 struct RepositoriesView: View {
@@ -48,8 +47,8 @@ struct RepositoriesView: View {
         .animation(.default, value: viewStore.state.selectedSortOption)
         .animation(.default, value: viewStore.state.isLoading)
         .searchable(text: $searchQuery)
-        .onFirstAppearTask {
-          viewStore.send(.onFirstAppear)
+        .onFirstAppear {
+          Task { viewStore.send(.onFirstAppear) }
         }
         .onChange(of: searchQuery) { query in
           viewStore.send(.onSearchTextChanged(query))

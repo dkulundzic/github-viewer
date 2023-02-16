@@ -1,10 +1,11 @@
+import Foundation
 import SwiftUI
 
-public struct ViewFirstAppearModifier: ViewModifier {
-  public let onAppear: () -> Void
+struct ViewFirstAppearModifier: ViewModifier {
+  let onAppear: () -> Void
   @State private var didAppearOnce = false
 
-  public func body(content: Content) -> some View {
+  func body(content: Content) -> some View {
     content.onAppear {
       if !didAppearOnce {
         didAppearOnce = true
@@ -14,10 +15,10 @@ public struct ViewFirstAppearModifier: ViewModifier {
   }
 }
 
-public extension View {
+extension View {
   func onFirstAppearTask(_ onAppear: @escaping () async -> Void) -> some View {
     onFirstAppear {
-      Task { await onAppear() }
+      Task(operation: onAppear)
     }
   }
 
