@@ -25,7 +25,7 @@ final class RepositoriesReducer: ReducerProtocol {
     case onSearchTextDelayCompleted(String)
     case onMenuActionTap(RepositorySortingOption)
     case onLoadRepositories
-    case onRepositoriesLoaded([Repository])
+    case onRepositoriesResponse(TaskResult<[Repository]>)
   }
 
   func reduce(
@@ -59,15 +59,21 @@ final class RepositoriesReducer: ReducerProtocol {
       state.isLoading = true
 
       return .task { [query = state.query] in
-        return await .onRepositoriesLoaded(
-          try self.repositoriesNetworkService.fetchRepositories(withQuery: query)
+        await .onRepositoriesResponse(
+          TaskResult { try await self.repositoriesNetworkService.fetchRepositories(withQuery: query) }
         )
       }
 
-    case .onRepositoriesLoaded(let repos):
+    case .onRepositoriesResponse(.failure(let error)):
+      print(#function, error)
       state.isLoading = false
-      state.originalRepositories = repos
-      state.repositories = repos.sorted(using: state.selectedSortOption)
+      state.originalRepositories = []
+      state.repositories = []
+      return .none
+    case .onRepositoriesResponse(.success(let repositories)):
+      state.isLoading = false
+      state.originalRepositories = repositories
+      state.repositories = repositories.sorted(using: state.selectedSortOption)
       return .none
     }
   }
