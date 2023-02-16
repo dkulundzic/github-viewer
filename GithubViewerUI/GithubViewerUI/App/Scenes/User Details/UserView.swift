@@ -21,10 +21,8 @@ struct UserView: View {
 
         Form {
           Section {
-            DisclosureContainerView {
-              Link(destination: viewStore.user.url) {
-                Text(L10n.repositoryWebPageCta)
-              }
+            Link(destination: viewStore.user.url) {
+              Text(L10n.repositoryWebPageCta)
             }
           }
         }

@@ -4,13 +4,14 @@ import GithubViewerModel
 
 struct RepositoryView: View {
   let store: StoreOf<RepositoryReducer>
+  let onUserTap: ParameterizedAction<User>
 
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       Form {
         Section {
           VStack(alignment: .leading, spacing: 4) {
-            Text(viewStore.name)
+            Text(viewStore.repository.name)
               .font(.headline)
             Text(viewStore.description)
               .font(.body)
@@ -42,30 +43,38 @@ struct RepositoryView: View {
 
         Section {
           RepositoryStatsView(
-            watchers: viewStore.watchers,
-            stars: viewStore.stars,
-            issues: viewStore.issues,
-            forks: viewStore.forks
+            watchers: viewStore.repository.numOfWatchers,
+            stars: viewStore.repository.numOfStars,
+            issues: viewStore.repository.numOfIssues,
+            forks: viewStore.repository.numOfForks
           )
         }
 
         Section(L10n.repositoryOwnedBy) {
           UserDetailsView(
-            url: viewStore.userUrl,
-            imageUrl: viewStore.userImageUrl,
-            name: viewStore.userName
-          )
+            imageUrl: viewStore.user.image,
+            name: viewStore.user.name
+          ) {
+            onUserTap(viewStore.user)
+          }
         }
 
         Section {
-          DisclosureContainerView {
-            Link(destination: viewStore.url) {
-              Text(L10n.repositoryWebPageCta)
-            }
+          Link(destination: viewStore.repository.url) {
+            Text(L10n.repositoryWebPageCta)
           }
         }
       }
     }
+    .navigationDestination(for: User.self) { user in
+      UserView(
+        store: Store(
+          initialState: UserReducer.State(user: user),
+          reducer: UserReducer()
+        )
+      )
+    }
+    .navigationTitle("")
     .navigationBarTitleDisplayMode(.inline)
   }
 }
@@ -78,7 +87,7 @@ struct RepositoryDetailsView_Previews: PreviewProvider {
           initialState: RepositoryReducer.State(repository: .mock),
           reducer: RepositoryReducer()
         )
-      )
+      ) { _ in }
     }
   }
 }

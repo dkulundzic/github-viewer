@@ -11,41 +11,42 @@ struct RepositoriesView: View {
 
   @State private var navigationPath: [Route] = []
   @State private var searchQuery = ""
+  @State private var path = NavigationPath()
 
   let store: StoreOf<RepositoriesReducer>
 
   var body: some View {
-    NavigationStack(path: $navigationPath) {
+    NavigationStack(path: $path) {
       WithViewStore(store, observe: { $0 }) { viewStore in
         ZStack(alignment: .bottomTrailing) {
-          if viewStore.state.isLoading {
+          if viewStore.isLoading {
             ProgressView()
               .frame(maxWidth: .infinity, maxHeight: .infinity)
           } else {
-            if viewStore.state.repositories.isEmpty {
+            if viewStore.repositories.isEmpty {
               Text(L10n.repositoriesListNoReposAvailableMessage)
                 .font(.title3)
             } else {
-              ListView(repositories: viewStore.state.repositories) { repository in
-                navigationPath.append(.repository(repository))
+              ListView(repositories: viewStore.repositories) { repository in
+                path.append(repository)
               } onUserThumbnailTap: { user in
-                navigationPath.append(.user(user))
+                path.append(user)
               }
-              .transition(.opacity)
+                .transition(.opacity)
             }
           }
 
           MenuView(
-            options: viewStore.state.sortOptions,
-            selectedSortOption: viewStore.state.selectedSortOption
+            options: viewStore.sortOptions,
+            selectedSortOption: viewStore.selectedSortOption
           ) { option in
             viewStore.send(.onMenuActionTap(option))
           }
           .padding(.trailing, 16)
           .transition(.opacity)
         }
-        .animation(.default, value: viewStore.state.selectedSortOption)
-        .animation(.default, value: viewStore.state.isLoading)
+        .animation(.default, value: viewStore.selectedSortOption)
+        .animation(.default, value: viewStore.isLoading)
         .searchable(text: $searchQuery)
         .onFirstAppear {
           Task { viewStore.send(.onFirstAppear) }
@@ -53,23 +54,23 @@ struct RepositoriesView: View {
         .onChange(of: searchQuery) { query in
           viewStore.send(.onSearchTextChanged(query))
         }
-        .navigationDestination(for: Route.self) { route in
-          switch route {
-          case .repository(let repository):
-            RepositoryView(
-              store: Store(
-                initialState: RepositoryReducer.State(repository: repository),
-                reducer: RepositoryReducer()
-              )
+        .navigationDestination(for: Repository.self) { repository in
+          RepositoryView(
+            store: Store(
+              initialState: RepositoryReducer.State(repository: repository),
+              reducer: RepositoryReducer()
             )
-          case .user(let user):
-            UserView(
-              store: Store(
-                initialState: UserReducer.State(user: user),
-                reducer: UserReducer()
-              )
-            )
+          ) { user in
+            path.append(user)
           }
+        }
+        .navigationDestination(for: User.self) { user in
+          UserView(
+            store: Store(
+              initialState: UserReducer.State(user: user),
+              reducer: UserReducer()
+            )
+          )
         }
         .navigationTitle(L10n.repositoriesListTitle)
       }

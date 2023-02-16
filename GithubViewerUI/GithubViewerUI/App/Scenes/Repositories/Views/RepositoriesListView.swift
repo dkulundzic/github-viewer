@@ -11,11 +11,12 @@ extension RepositoriesView {
       ScrollView {
         VStack(alignment: .leading) {
           ForEach(repositories) { repository in
-            ItemView(repository: repository) {
-              onUserThumbnailTap(repository.user)
-            }
-            .onTapGesture {
+            Button {
               onRepositoryTap(repository)
+            } label: {
+              ItemView(repository: repository) {
+                onUserThumbnailTap(repository.user)
+              }
             }
           }
         }
