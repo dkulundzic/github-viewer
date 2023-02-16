@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RepositoryUserView: View {
+struct UserDetailsView: View {
   let url: URL
   let imageUrl: URL
   let name: String
@@ -24,7 +24,7 @@ struct RepositoryUserView: View {
 // swiftlint:disable force_unwrapping
 struct RepositoryDetailsUserView_Previews: PreviewProvider {
   static var previews: some View {
-    RepositoryUserView(
+    UserDetailsView(
       url: URL(string: "https://github.com/dkulundzic")!,
       imageUrl: URL(string: "https://avatars.githubusercontent.com/u/13629408?v=4")!,
       name: "dkulundzic"

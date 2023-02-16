@@ -70,7 +70,7 @@ final class RepositoriesReducer: ReducerProtocol {
       state.originalRepositories = []
       state.repositories = []
       return .none
-      
+
     case .onRepositoriesResponse(.success(let repositories)):
       state.isLoading = false
       state.originalRepositories = repositories

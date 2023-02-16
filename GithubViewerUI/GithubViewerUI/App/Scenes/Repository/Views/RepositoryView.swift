@@ -10,9 +10,9 @@ struct RepositoryView: View {
       Form {
         Section {
           VStack(alignment: .leading, spacing: 4) {
-            Text(viewStore.state.name)
+            Text(viewStore.name)
               .font(.headline)
-            Text(viewStore.state.description)
+            Text(viewStore.description)
               .font(.body)
           }
 
@@ -25,44 +25,42 @@ struct RepositoryView: View {
           ) {
             NamedDataView(
               name: L10n.repositoryLastUpdated,
-              data: viewStore.state.lastUpdated
+              data: viewStore.lastUpdated
             )
 
             NamedDataView(
               name: L10n.repositoryLanguage,
-              data: viewStore.state.language
+              data: viewStore.language
             )
 
             NamedDataView(
               name: L10n.repositoryVisibility,
-              data: viewStore.state.visibility
+              data: viewStore.visibility
             )
           }
         }
 
         Section {
           RepositoryStatsView(
-            watchers: viewStore.state.watchers,
-            stars: viewStore.state.stars,
-            issues: viewStore.state.issues,
-            forks: viewStore.state.forks
+            watchers: viewStore.watchers,
+            stars: viewStore.stars,
+            issues: viewStore.issues,
+            forks: viewStore.forks
           )
         }
 
         Section(L10n.repositoryOwnedBy) {
-          RepositoryUserView(
-            url: viewStore.state.userUrl,
-            imageUrl: viewStore.state.userImageUrl,
-            name: viewStore.state.userName
+          UserDetailsView(
+            url: viewStore.userUrl,
+            imageUrl: viewStore.userImageUrl,
+            name: viewStore.userName
           )
         }
 
         Section {
-          Link(destination: viewStore.state.url) {
-            HStack {
+          DisclosureContainerView {
+            Link(destination: viewStore.url) {
               Text(L10n.repositoryWebPageCta)
-              Spacer()
-              Image(systemName: "chevron.forward")
             }
           }
         }

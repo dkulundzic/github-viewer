@@ -64,7 +64,12 @@ struct RepositoriesView: View {
               )
             )
           case .user(let user):
-            UserDetailsView(user: user)
+            UserView(
+              store: Store(
+                initialState: UserReducer.State(user: user),
+                reducer: UserReducer()
+              )
+            )
           }
         }
         .navigationTitle(L10n.repositoriesListTitle)
