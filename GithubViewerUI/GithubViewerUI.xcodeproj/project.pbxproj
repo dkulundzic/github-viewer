@@ -62,7 +62,6 @@
 		2FBBF02129A3A38E0049CAB4 /* AsyncImageWithProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncImageWithProgress.swift; sourceTree = "<group>"; };
 		2FBBF02429A3A38E0049CAB4 /* RepositorySortingOptions+Localized.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RepositorySortingOptions+Localized.swift"; sourceTree = "<group>"; };
 		2FBBF03D29A3A44E0049CAB4 /* GithubViewerDomain */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GithubViewerDomain; path = ../GithubViewerDomain; sourceTree = "<group>"; };
-		2FBBF03E29A3A4590049CAB4 /* github-viewer */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "github-viewer"; path = ..; sourceTree = "<group>"; };
 		2FBBF03F29A3A45F0049CAB4 /* GithubViewerModel */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GithubViewerModel; path = ../GithubViewerModel; sourceTree = "<group>"; };
 		2FBBF04029A3A46B0049CAB4 /* GithubViewerNetworking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GithubViewerNetworking; path = ../GithubViewerNetworking; sourceTree = "<group>"; };
 		2FBBF04E29A3A8240049CAB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -289,7 +288,6 @@
 			isa = PBXGroup;
 			children = (
 				2FBBF03D29A3A44E0049CAB4 /* GithubViewerDomain */,
-				2FBBF03E29A3A4590049CAB4 /* github-viewer */,
 				2FBBF03F29A3A45F0049CAB4 /* GithubViewerModel */,
 				2FBBF04029A3A46B0049CAB4 /* GithubViewerNetworking */,
 			);
