@@ -18,11 +18,12 @@ extension RepositoriesView {
         VStack(alignment: .leading, spacing: 8) {
           Text(repository.name)
           Text(repository.user.name)
-          HStack {
-            Text(repository.numOfIssues.description)
-            Text(repository.numOfWatchers.description)
-            Text(repository.numOfForks.description)
-          }
+          RepositoryStatsView(
+            watchers: repository.numOfWatchers,
+            stars: repository.numOfStars,
+            issues: repository.numOfIssues,
+            forks: repository.numOfForks
+          )
           .font(.footnote)
         }
         .padding(.leading, 8)
@@ -38,6 +39,12 @@ extension RepositoriesView {
 
 struct ItemView_Previews: PreviewProvider {
   static var previews: some View {
-    RepositoriesView.ItemView(repository: .mock) { }
+    DevicePreviewView {
+      RepositoriesView.ItemView(repository: .mock) { }
+    }
+
+    DevicePreviewView(device: PreviewDevice.Phone.iPhoneSE) {
+      RepositoriesView.ItemView(repository: .mock) { }
+    }
   }
 }
