@@ -14,6 +14,7 @@ let package = Package(
   ],
   dependencies: [
     .package(path: "../GithubViewerModel"),
+    .package(path: "../GithubViewerNetworking"),
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.51.0"),
   ],
   targets: [
@@ -23,11 +24,17 @@ let package = Package(
       name: "GithubViewerDomain",
       dependencies: [
         "GithubViewerModel",
+        "GithubViewerNetworking",
         .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
       ]
     ),
     .testTarget(
       name: "GithubViewerDomainTests",
-      dependencies: ["GithubViewerDomain"]),
+      dependencies: [
+        "GithubViewerModel",
+        "GithubViewerNetworking",
+        "GithubViewerDomain",
+        .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+      ]),
   ]
 )

@@ -1,7 +1,8 @@
 import XCTest
 import ComposableArchitecture
 import GithubViewerModel
-@testable import GithubViewerUI
+import GithubViewerNetworking
+@testable import GithubViewerDomain
 
 @MainActor
 final class RepositoriesTests: XCTestCase {
@@ -16,9 +17,7 @@ final class RepositoriesTests: XCTestCase {
 
     await store.receive(.onLoadRepositories) { $0.isLoading = true }
 
-    await store.receive(.onRepositoriesLoaded([])) {
-      $0.isLoading = false
-    }
+    await store.receive(.onRepositoriesResponse(.success([]))) { $0.isLoading = false }
   }
 
   func testSortOptionSelection() async {
@@ -49,9 +48,7 @@ final class RepositoriesTests: XCTestCase {
       $0.isLoading = true
     }
 
-    await store.receive(.onRepositoriesLoaded([])) {
-      $0.isLoading = false
-    }
+    await store.receive(.onRepositoriesResponse(.success([]))) { $0.isLoading = false }
   }
 
   func testSearchTextDebounced() async {
@@ -70,10 +67,8 @@ final class RepositoriesTests: XCTestCase {
       $0.isLoading = true
     }
 
-    await store.receive(.onRepositoriesLoaded([])) {
+    await store.receive(.onRepositoriesResponse(.success([]))) {
       $0.isLoading = false
-      $0.repositories = []
-      $0.originalRepositories = []
     }
   }
 
