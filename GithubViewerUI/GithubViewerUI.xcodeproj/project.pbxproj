@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2FB604A129A3BC970076E9A0 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB604A029A3BC970076E9A0 /* Environment.swift */; };
+		2FB604A329A3BE450076E9A0 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FB604A229A3BE450076E9A0 /* Global.swift */; };
 		2FBBF02629A3A38E0049CAB4 /* RepositoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBBF00129A3A38E0049CAB4 /* RepositoryView.swift */; };
 		2FBBF02729A3A38E0049CAB4 /* RepositoriesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBBF00329A3A38E0049CAB4 /* RepositoriesListView.swift */; };
 		2FBBF02829A3A38E0049CAB4 /* RepositoriesItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FBBF00429A3A38E0049CAB4 /* RepositoriesItemView.swift */; };
@@ -39,6 +40,7 @@
 		2FB6049D29A3BC7D0076E9A0 /* Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Staging.xcconfig; sourceTree = "<group>"; };
 		2FB6049E29A3BC840076E9A0 /* Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Production.xcconfig; sourceTree = "<group>"; };
 		2FB604A029A3BC970076E9A0 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		2FB604A229A3BE450076E9A0 /* Global.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		2FBBEFEC29A3A3680049CAB4 /* GithubViewerUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubViewerUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FBBF00129A3A38E0049CAB4 /* RepositoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryView.swift; sourceTree = "<group>"; };
 		2FBBF00329A3A38E0049CAB4 /* RepositoriesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoriesListView.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 			isa = PBXGroup;
 			children = (
 				2FB604A029A3BC970076E9A0 /* Environment.swift */,
+				2FB604A229A3BE450076E9A0 /* Global.swift */,
 			);
 			path = System;
 			sourceTree = "<group>";
@@ -177,8 +180,8 @@
 		2FBBF00A29A3A38E0049CAB4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2FB6049B29A3BC630076E9A0 /* Configurations */,
 				2FBBF00B29A3A38E0049CAB4 /* Assets */,
+				2FB6049B29A3BC630076E9A0 /* Configurations */,
 				2FBBF00F29A3A38E0049CAB4 /* Localization */,
 			);
 			path = Resources;
@@ -221,9 +224,9 @@
 		2FBBF01429A3A38E0049CAB4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				2FBBF02229A3A38E0049CAB4 /* Extensions */,
 				2FB6049F29A3BC940076E9A0 /* System */,
 				2FBBF01529A3A38E0049CAB4 /* UI */,
-				2FBBF02229A3A38E0049CAB4 /* Extensions */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				2FBBF03929A3A38E0049CAB4 /* AsyncImageWithProgress.swift in Sources */,
 				2FBBF02629A3A38E0049CAB4 /* RepositoryView.swift in Sources */,
 				2FBBF02A29A3A38E0049CAB4 /* RepositoriesMenuView.swift in Sources */,
+				2FB604A329A3BE450076E9A0 /* Global.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
