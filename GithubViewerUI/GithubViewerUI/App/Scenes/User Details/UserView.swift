@@ -1,6 +1,7 @@
 import SwiftUI
-import GithubViewerModel
 import ComposableArchitecture
+import GithubViewerModel
+import GithubViewerDomain
 
 struct UserView: View {
   let store: StoreOf<UserReducer>

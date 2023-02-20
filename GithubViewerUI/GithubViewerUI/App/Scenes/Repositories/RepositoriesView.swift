@@ -1,6 +1,7 @@
 import SwiftUI
 import GithubViewerModel
 import GithubViewerNetworking
+import GithubViewerDomain
 import ComposableArchitecture
 
 struct RepositoriesView: View {

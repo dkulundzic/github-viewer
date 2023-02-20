@@ -2,24 +2,26 @@ import Foundation
 import ComposableArchitecture
 import GithubViewerModel
 
-final class RepositoriesReducer: ReducerProtocol {
+public final class RepositoriesReducer: ReducerProtocol {
   @Dependency(\.repositoriesNetworkService) private var repositoriesNetworkService
   @Dependency(\.mainQueue) private var queue
 
-  struct RepositoriesState: Equatable {
-    var query: String = "Kingfisher"
-    var repositories: [Repository] = []
-    var originalRepositories: [Repository] = []
-    var isLoading = false
-    var selectedSortOption: RepositorySortingOption?
-    let sortOptions = RepositorySortingOption.sorted
+  public struct RepositoriesState: Equatable {
+    public var query: String = "Kingfisher"
+    public var repositories: [Repository] = []
+    public var originalRepositories: [Repository] = []
+    public var isLoading = false
+    public var selectedSortOption: RepositorySortingOption?
+    public let sortOptions = RepositorySortingOption.sorted
 
-    init(selectedSortOption: RepositorySortingOption? = nil) {
+    public init(selectedSortOption: RepositorySortingOption? = nil) {
       self.selectedSortOption = selectedSortOption
     }
   }
 
-  enum RepositoriesAction: Equatable {
+  public init() { }
+
+  public enum RepositoriesAction: Equatable {
     case onFirstAppear
     case onSearchTextChanged(String)
     case onSearchTextDelayCompleted(String)
@@ -28,7 +30,7 @@ final class RepositoriesReducer: ReducerProtocol {
     case onRepositoriesResponse(TaskResult<[Repository]>)
   }
 
-  func reduce(
+  public func reduce(
     into state: inout RepositoriesState,
     action: RepositoriesAction
   ) -> EffectTask<RepositoriesAction> {

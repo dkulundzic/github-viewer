@@ -1,6 +1,7 @@
 import SwiftUI
 import ComposableArchitecture
 import GithubViewerModel
+import GithubViewerDomain
 
 struct RepositoryView: View {
   let store: StoreOf<RepositoryReducer>
