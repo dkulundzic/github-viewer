@@ -2,14 +2,20 @@ import Foundation
 import GithubViewerModel
 
 public protocol RepositoriesNetworkService {
-  func fetchRepositories(withQuery query: String) async throws -> [Repository]
+  func fetchRepositories(
+    withQuery query: String,
+    using sortOption: RepositorySortingOption?
+  ) async throws -> [Repository]
 }
 
 public final class DefaultRepositoriesNetworkService: RepositoriesNetworkService {
   public init() { }
-  
-  public func fetchRepositories(withQuery query: String) async throws -> [Repository] {
-    let resource = RepositoriesResource.search(query: query)
+
+  public func fetchRepositories(
+    withQuery query: String,
+    using sortOption: RepositorySortingOption?
+  ) async throws -> [Repository] {
+    let resource = RepositoriesResource.search(query: query, sortOption: sortOption)
     print(#function, resource.url)
     let (data, _) = try await URLSession.shared.data(from: resource.url)
     let decoder = JSONDecoder()
@@ -21,7 +27,10 @@ public final class DefaultRepositoriesNetworkService: RepositoriesNetworkService
 public final class TestRepositoriesNetworkService: RepositoriesNetworkService {
   public init() { }
 
-  public func fetchRepositories(withQuery query: String) async throws -> [Repository] {
+  public func fetchRepositories(
+    withQuery query: String,
+    using sortOption: RepositorySortingOption?
+  ) async throws -> [Repository] {
     []
   }
 }

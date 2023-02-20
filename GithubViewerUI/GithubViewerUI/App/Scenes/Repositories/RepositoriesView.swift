@@ -24,9 +24,10 @@ struct RepositoriesView: View {
             ProgressView()
               .frame(maxWidth: .infinity, maxHeight: .infinity)
           } else {
-            if viewStore.repositories.isEmpty {
-              Text(L10n.repositoriesListNoReposAvailableMessage)
+            if let message = viewStore.infoMessage {
+              Text(message)
                 .font(.title3)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
               ListView(repositories: viewStore.repositories) { repository in
                 path.append(repository)

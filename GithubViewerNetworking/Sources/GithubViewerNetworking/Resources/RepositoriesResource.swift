@@ -1,7 +1,13 @@
 import Foundation
+import GithubViewerModel
 
 enum RepositoriesResource: Resource {
-  case search(query: String)
+  private enum QueryKey: String {
+    case query = "q"
+    case sort
+  }
+
+  case search(query: String, sortOption: RepositorySortingOption?)
 
   var endpoint: String {
     switch self {
@@ -12,8 +18,11 @@ enum RepositoriesResource: Resource {
 
   var queryItems: [URLQueryItem]? {
     switch self {
-    case .search(let query):
-      return [URLQueryItem(name: "q", value: query)]
+    case .search(let query, let sortOption):
+      return [
+        URLQueryItem(name: QueryKey.query.rawValue, value: query),
+        URLQueryItem(name: QueryKey.sort.rawValue, value: sortOption?.description)
+      ]
     }
   }
 }

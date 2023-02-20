@@ -7,15 +7,22 @@ public final class RepositoriesReducer: ReducerProtocol {
   @Dependency(\.mainQueue) private var queue
 
   public struct RepositoriesState: Equatable {
-    public var query: String = "Kingfisher"
+    public var query: String
     public var repositories: [Repository] = []
     public var originalRepositories: [Repository] = []
     public var isLoading = false
+    public var infoMessage: String?
     public var selectedSortOption: RepositorySortingOption?
     public let sortOptions = RepositorySortingOption.sorted
+    public let defaultQuery = "Kingfisher"
 
     public init(selectedSortOption: RepositorySortingOption? = nil) {
       self.selectedSortOption = selectedSortOption
+      self.query = defaultQuery
+    }
+
+    public mutating func setQuery(_ query: String) {
+      self.query = query.isEmpty ? defaultQuery : query
     }
   }
 
@@ -45,35 +52,36 @@ public final class RepositoriesReducer: ReducerProtocol {
         .debounce(id: SearchDebounceID(), for: 0.5, scheduler: queue)
 
     case .onSearchTextDelayCompleted(let query):
-      state.query = query
+      state.setQuery(query)
       return .send(.onLoadRepositories)
 
     case .onMenuActionTap(let option):
       state.selectedSortOption = option == state.selectedSortOption ? nil : option
       state.repositories = state.originalRepositories.sorted(using: state.selectedSortOption)
-      return .none
+      return .send(.onLoadRepositories)
 
     case .onLoadRepositories:
-      guard !state.query.isEmpty else {
-        return . none
-      }
-
       state.isLoading = true
 
-      return .task { [query = state.query] in
+      return .task { [query = state.query, sortOption = state.selectedSortOption] in
         await .onRepositoriesResponse(
-          TaskResult { try await self.repositoriesNetworkService.fetchRepositories(withQuery: query) }
+          TaskResult {
+            try await self.repositoriesNetworkService.fetchRepositories(
+              withQuery: query, using: sortOption
+            )
+          }
         )
       }
 
-    case .onRepositoriesResponse(.failure(let error)):
-      print(#function, error)
+    case .onRepositoriesResponse(.failure):
+      state.infoMessage = L10n.repositoriesListErrorMessage
       state.isLoading = false
       state.originalRepositories = []
       state.repositories = []
       return .none
 
     case .onRepositoriesResponse(.success(let repositories)):
+      state.infoMessage = repositories.isEmpty ? L10n.repositoriesListNoReposAvailableMessage : nil
       state.isLoading = false
       state.originalRepositories = repositories
       state.repositories = repositories.sorted(using: state.selectedSortOption)
