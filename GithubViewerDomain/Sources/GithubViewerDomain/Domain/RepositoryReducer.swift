@@ -14,9 +14,9 @@ public final class RepositoryReducer: ReducerProtocol {
     public init(repository: Repository) {
       self.repository = repository
       self.user = repository.user
-      self.description = repository.description ?? ""
-      self.language = repository.language ?? ""
-      self.visibility = repository.isPrivate ? "" : ""
+      self.description = repository.description ?? L10n.repositoryDescriptionPlaceholder
+      self.language = repository.language ?? L10n.repositoryLanguagePlaceholder
+      self.visibility = repository.isPrivate ? L10n.repositoryVisibilityPrivate : L10n.repositoryVisibilityPublic
       self.lastUpdated = repository.updated.formatted(
         date: .abbreviated,
         time: .omitted

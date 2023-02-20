@@ -20,22 +20,14 @@ internal enum L10n {
   internal static let repositoriesListSortingUpdated = L10n.tr("Localizable", "repositories_list_sorting_updated", fallback: "Updated")
   /// Repositories
   internal static let repositoriesListTitle = L10n.tr("Localizable", "repositories_list_title", fallback: "Repositories")
-  /// No description provided
-  internal static let repositoryDescriptionPlaceholder = L10n.tr("Localizable", "repository_description_placeholder", fallback: "No description provided")
   /// Language
   internal static let repositoryLanguage = L10n.tr("Localizable", "repository_language", fallback: "Language")
-  /// Not available
-  internal static let repositoryLanguagePlaceholder = L10n.tr("Localizable", "repository_language_placeholder", fallback: "Not available")
   /// Last updated
   internal static let repositoryLastUpdated = L10n.tr("Localizable", "repository_last_updated", fallback: "Last updated")
   /// Owned by
   internal static let repositoryOwnedBy = L10n.tr("Localizable", "repository_owned_by", fallback: "Owned by")
   /// Visibility
   internal static let repositoryVisibility = L10n.tr("Localizable", "repository_visibility", fallback: "Visibility")
-  /// Private
-  internal static let repositoryVisibilityPrivate = L10n.tr("Localizable", "repository_visibility_private", fallback: "Private")
-  /// Public
-  internal static let repositoryVisibilityPublic = L10n.tr("Localizable", "repository_visibility_public", fallback: "Public")
   /// See on the web
   internal static let repositoryWebPageCta = L10n.tr("Localizable", "repository_web_page_cta", fallback: "See on the web")
 }

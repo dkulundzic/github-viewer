@@ -1,0 +1,5 @@
+strings:
+  inputs: Sources/GithubViewerDomain/Resources/Localization/en.lproj/Localizable.strings
+  outputs:
+    templateName: structured-swift5
+    output: Sources/GithubViewerDomain/Resources/Localization/Generated/Strings.swift
