@@ -54,9 +54,7 @@ struct RepositoryView: View {
           UserDetailsView(
             imageUrl: viewStore.user.image,
             name: viewStore.user.name
-          ) {
-            onUserTap(viewStore.user)
-          }
+          )
         }
 
         Section {
@@ -66,14 +64,6 @@ struct RepositoryView: View {
         }
       }
     }
-    .navigationDestination(for: User.self) { user in
-      UserView(
-        store: Store(
-          initialState: UserReducer.State(user: user),
-          reducer: UserReducer()
-        )
-      )
-    }
     .navigationTitle("")
     .navigationBarTitleDisplayMode(.inline)
   }
@@ -81,7 +71,16 @@ struct RepositoryView: View {
 
 struct RepositoryDetailsView_Previews: PreviewProvider {
   static var previews: some View {
-    NavigationStack {
+    DevicePreviewView(device: PreviewDevice.Phone.iPhoneSE) {
+      RepositoryView(
+        store: Store(
+          initialState: RepositoryReducer.State(repository: .mock),
+          reducer: RepositoryReducer()
+        )
+      ) { _ in }
+    }
+
+    DevicePreviewView {
       RepositoryView(
         store: Store(
           initialState: RepositoryReducer.State(repository: .mock),

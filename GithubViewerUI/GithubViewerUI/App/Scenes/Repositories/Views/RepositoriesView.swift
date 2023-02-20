@@ -45,15 +45,15 @@ struct RepositoriesView: View {
           .padding(.trailing, 16)
           .transition(.opacity)
         }
-        .animation(.default, value: viewStore.selectedSortOption)
-        .animation(.default, value: viewStore.isLoading)
-        .searchable(text: $searchQuery)
         .onFirstAppear {
           Task { viewStore.send(.onFirstAppear) }
         }
         .onChange(of: searchQuery) { query in
           viewStore.send(.onSearchTextChanged(query))
         }
+        .animation(.default, value: viewStore.selectedSortOption)
+        .animation(.default, value: viewStore.isLoading)
+        .searchable(text: $searchQuery)
         .navigationDestination(for: Repository.self) { repository in
           RepositoryView(
             store: Store(
