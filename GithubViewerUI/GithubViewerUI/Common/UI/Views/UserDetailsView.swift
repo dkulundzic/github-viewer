@@ -3,16 +3,30 @@ import SwiftUI
 struct UserDetailsView: View {
   let imageUrl: URL
   let name: String
+  let onTap: Action?
+
+  init(
+    imageUrl: URL,
+    name: String,
+    onTap: Action? = nil
+  ) {
+    self.imageUrl = imageUrl
+    self.name = name
+    self.onTap = onTap
+  }
 
   var body: some View {
     HStack {
       AsyncImageWithProgress(
         url: imageUrl,
-        imageSize: 50
+        imageSize: 50,
+        onTap: onTap
       )
+
       Text(name)
         .padding(.leading, 8)
     }
+    .onTapGesture { onTap?() }
   }
 }
 

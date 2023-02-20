@@ -54,8 +54,9 @@ struct RepositoryView: View {
         Section(L10n.repositoryOwnedBy) {
           UserDetailsView(
             imageUrl: viewStore.user.image,
-            name: viewStore.user.name
-          )
+            name: viewStore.user.name) {
+              onUserTap(viewStore.user)
+            }
         }
 
         Section {
