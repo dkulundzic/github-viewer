@@ -16,7 +16,7 @@ struct ViewFirstAppearModifier: ViewModifier {
 }
 
 extension View {
-  func onFirstAppearTask(_ onAppear: @escaping () async -> Void) -> some View {
+  func onFirstAppearTask(_ onAppear: @Sendable @escaping () async -> Void) -> some View {
     onFirstAppear {
       Task(operation: onAppear)
     }
