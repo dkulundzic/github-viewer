@@ -6,7 +6,6 @@ import GithubViewerDomain
 struct UserView: View {
   let store: StoreOf<UserReducer>
 
-#warning("TODO: Localise")
   var body: some View {
     WithViewStore(store, observe: { $0 }) { viewStore in
       VStack {

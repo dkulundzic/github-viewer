@@ -26,4 +26,3 @@ struct DevicePreviewView_Previews: PreviewProvider {
     }
   }
 }
-
