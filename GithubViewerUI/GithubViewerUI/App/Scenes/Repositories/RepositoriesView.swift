@@ -5,12 +5,6 @@ import GithubViewerDomain
 import ComposableArchitecture
 
 struct RepositoriesView: View {
-  private enum Route: Hashable {
-    case repository(Repository)
-    case user(User)
-  }
-
-  @State private var navigationPath: [Route] = []
   @State private var searchQuery = ""
   @State private var path = NavigationPath()
 
@@ -30,9 +24,9 @@ struct RepositoriesView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
               ListView(repositories: viewStore.repositories) { repository in
-                path.append(repository)
+                performNavigation(value: repository)
               } onUserThumbnailTap: { user in
-                path.append(user)
+                performNavigation(value: user)
               }
                 .transition(.opacity)
             }
@@ -63,7 +57,7 @@ struct RepositoriesView: View {
               reducer: RepositoryReducer()
             )
           ) { user in
-            path.append(user)
+            performNavigation(value: user)
           }
         }
         .navigationDestination(for: User.self) { user in
@@ -76,6 +70,17 @@ struct RepositoriesView: View {
         }
         .navigationTitle(L10n.repositoriesListTitle)
       }
+    }
+  }
+
+  private func performNavigation(value: any Hashable) {
+    switch value {
+    case is User:
+      if Environment.isProduction { path.append(value) }
+    case is Repository:
+      if Environment.current != .develop { path.append(value) }
+    default:
+      return
     }
   }
 }
