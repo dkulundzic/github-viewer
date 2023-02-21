@@ -24,11 +24,11 @@ struct RepositoriesView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
               ListView(repositories: viewStore.repositories) { repository in
-                performNavigation(value: repository)
+                path.append(repository)
               } onUserThumbnailTap: { user in
-                performNavigation(value: user)
+                path.append(user)
               }
-                .transition(.opacity)
+              .transition(.opacity)
             }
           }
 
@@ -50,37 +50,30 @@ struct RepositoriesView: View {
         .animation(.default, value: viewStore.selectedSortOption)
         .animation(.default, value: viewStore.isLoading)
         .searchable(text: $searchQuery)
-        .navigationDestination(for: Repository.self) { repository in
-          RepositoryView(
-            store: Store(
-              initialState: RepositoryReducer.State(repository: repository),
-              reducer: RepositoryReducer()
-            )
-          ) { user in
-            performNavigation(value: user)
+        .if(!Environment.isDevelopment) { view in
+          view.navigationDestination(for: Repository.self) { repository in
+            RepositoryView(
+              store: Store(
+                initialState: RepositoryReducer.State(repository: repository),
+                reducer: RepositoryReducer()
+              )
+            ) { user in
+              path.append(user)
+            }
           }
         }
-        .navigationDestination(for: User.self) { user in
-          UserView(
-            store: Store(
-              initialState: UserReducer.State(user: user),
-              reducer: UserReducer()
+        .if(Environment.isProduction) { view in
+          view.navigationDestination(for: User.self) { user in
+            UserView(
+              store: Store(
+                initialState: UserReducer.State(user: user),
+                reducer: UserReducer()
+              )
             )
-          )
+          }
         }
         .navigationTitle(L10n.repositoriesListTitle)
       }
-    }
-  }
-
-  private func performNavigation(value: any Hashable) {
-    switch value {
-    case is User:
-      if Environment.isProduction { path.append(value) }
-    case is Repository:
-      if Environment.current != .develop { path.append(value) }
-    default:
-      return
     }
   }
 }
