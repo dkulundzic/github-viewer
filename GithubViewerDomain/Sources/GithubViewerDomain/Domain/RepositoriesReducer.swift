@@ -61,6 +61,8 @@ public final class RepositoriesReducer: ReducerProtocol {
       return .send(.onLoadRepositories)
 
     case .onLoadRepositories:
+      struct CancelID: Hashable { }
+
       state.isLoading = true
 
       return .task { [query = state.query, sortOption = state.selectedSortOption] in
@@ -72,8 +74,10 @@ public final class RepositoriesReducer: ReducerProtocol {
           }
         )
       }
+      .cancellable(id: CancelID(), cancelInFlight: true)
 
-    case .onRepositoriesResponse(.failure):
+    case .onRepositoriesResponse(.failure(let error)):
+      print(#function, error)
       state.infoMessage = L10n.repositoriesListErrorMessage
       state.isLoading = false
       state.originalRepositories = []
