@@ -33,7 +33,6 @@
 		2FBBF04329A3A4740049CAB4 /* GithubViewerDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 2FBBF04229A3A4740049CAB4 /* GithubViewerDomain */; };
 		2FBBF04529A3A4740049CAB4 /* GithubViewerModel in Frameworks */ = {isa = PBXBuildFile; productRef = 2FBBF04429A3A4740049CAB4 /* GithubViewerModel */; };
 		2FBBF04729A3A4740049CAB4 /* GithubViewerNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 2FBBF04629A3A4740049CAB4 /* GithubViewerNetworking */; };
-		2FCBF23829A4DA7200805960 /* View+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FCBF23729A4DA7200805960 /* View+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,7 +67,6 @@
 		2FBBF03F29A3A45F0049CAB4 /* GithubViewerModel */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GithubViewerModel; path = ../GithubViewerModel; sourceTree = "<group>"; };
 		2FBBF04029A3A46B0049CAB4 /* GithubViewerNetworking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GithubViewerNetworking; path = ../GithubViewerNetworking; sourceTree = "<group>"; };
 		2FBBF04E29A3A8240049CAB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		2FCBF23729A4DA7200805960 /* View+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,7 +274,6 @@
 		2FBBF02229A3A38E0049CAB4 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				2FCBF23629A4DA6900805960 /* SwiftUI */,
 				2FBBF02329A3A38E0049CAB4 /* GithubViewerModel */,
 			);
 			path = Extensions;
@@ -305,14 +302,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		2FCBF23629A4DA6900805960 /* SwiftUI */ = {
-			isa = PBXGroup;
-			children = (
-				2FCBF23729A4DA7200805960 /* View+Utils.swift */,
-			);
-			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -434,7 +423,6 @@
 				2FBBF02829A3A38E0049CAB4 /* RepositoriesItemView.swift in Sources */,
 				2FBBF03129A3A38E0049CAB4 /* ViewFirstAppearModifier.swift in Sources */,
 				2FBBF03929A3A38E0049CAB4 /* AsyncImageWithProgress.swift in Sources */,
-				2FCBF23829A4DA7200805960 /* View+Utils.swift in Sources */,
 				2FBBF02629A3A38E0049CAB4 /* RepositoryView.swift in Sources */,
 				2FBBF02A29A3A38E0049CAB4 /* RepositoriesMenuView.swift in Sources */,
 				2FB604A329A3BE450076E9A0 /* Global.swift in Sources */,
