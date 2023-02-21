@@ -15,4 +15,5 @@ everything with Combine. This would be a bonus feature, but it's out of scope of
 
 ## Features and bonus points
 
-The app has all of the required features and a couple of bonus points - multiple environments and unit tests.    
+The app has all of the required features and a couple of bonus points - multiple environments and unit tests. I had issues with getting 
+`matchedGeometryEffect` to work and `OAuth` could be built using `ASAuthorizationController`. 
