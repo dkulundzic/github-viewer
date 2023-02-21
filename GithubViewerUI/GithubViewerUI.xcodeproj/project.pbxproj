@@ -33,7 +33,6 @@
 		2FBBF04329A3A4740049CAB4 /* GithubViewerDomain in Frameworks */ = {isa = PBXBuildFile; productRef = 2FBBF04229A3A4740049CAB4 /* GithubViewerDomain */; };
 		2FBBF04529A3A4740049CAB4 /* GithubViewerModel in Frameworks */ = {isa = PBXBuildFile; productRef = 2FBBF04429A3A4740049CAB4 /* GithubViewerModel */; };
 		2FBBF04729A3A4740049CAB4 /* GithubViewerNetworking in Frameworks */ = {isa = PBXBuildFile; productRef = 2FBBF04629A3A4740049CAB4 /* GithubViewerNetworking */; };
-		2FCBF23A29A4E06900805960 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 2FCBF23929A4E06900805960 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,7 +67,6 @@
 		2FBBF03F29A3A45F0049CAB4 /* GithubViewerModel */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GithubViewerModel; path = ../GithubViewerModel; sourceTree = "<group>"; };
 		2FBBF04029A3A46B0049CAB4 /* GithubViewerNetworking */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GithubViewerNetworking; path = ../GithubViewerNetworking; sourceTree = "<group>"; };
 		2FBBF04E29A3A8240049CAB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		2FCBF23929A4E06900805960 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +105,6 @@
 		2FBBEFE329A3A3680049CAB4 = {
 			isa = PBXGroup;
 			children = (
-				2FCBF23929A4E06900805960 /* README.md */,
 				2FBBF03C29A3A44E0049CAB4 /* Packages */,
 				2FBBEFFD29A3A38E0049CAB4 /* GithubViewerUI */,
 				2FBBEFED29A3A3680049CAB4 /* Products */,
@@ -374,7 +371,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FCBF23A29A4E06900805960 /* README.md in Resources */,
 				2FBBF02E29A3A38E0049CAB4 /* Images.xcassets in Resources */,
 				2FBBF03029A3A38E0049CAB4 /* Localizable.strings in Resources */,
 			);
